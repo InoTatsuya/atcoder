@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cmath>
 using namespace std;
 
 int main(){
@@ -34,46 +35,91 @@ int main(){
     int y = 0;
     int xold = -1;
     int yold = -1;
+    int xmin = 0;
+    int ymin = 0;
+    int count = 0;
+
+    if( li[0][0] != 46 ){
+        li[0][0] = 46;
+        count++;
+    }
 
     while( 1 ){
-        cout << "now:" << x << "," << y  << "  old:" << xold << "," << yold << "\n";
+//        cout << "now:" << x << "," << y  << "  old:" << xold << "," << yold << "," << count << "\n";
         // 上確認
         if( ( x > 0 ) && ( ( x - 1 ) != xold ) && ( li[ x - 1 ][y] == 46 ) ){
-            cout << "up ok\n";
+//            cout << "up ok\n";
             xold = x;
             x--;
         }
         // 右確認
         else if( ( y < b ) && ( ( y + 1 ) != yold ) && ( li[x][ y + 1 ] == 46 ) ){
-            cout << "right ok\n";
+//            cout << "right ok\n";
             yold = y;
             y++;
         }
         // 下確認
         else if( ( x < a ) && ( ( x + 1 ) != xold ) && ( li[ x + 1 ][y] == 46 ) ){
-            cout << "down ok\n";
+//            cout << "down ok\n";
             xold = x;
             x++;
         }
         // 左確認
         else if( ( y > 0 ) && ( ( y - 1 ) != yold ) && ( li[x][ y - 1 ] == 46 ) ){
-            cout << "left ok\n";
+//            cout << "left ok\n";
             yold = y;
             y--;
         }
         // どこもいけない
         else{
-            cout << "nothing\n";
-            break;
+//            cout << "nothing\n";
+//            cout << "min:" << xmin << "," << ymin << "\n";
+            // 一番近いとこを白にする
+            if( ( xmin > ymin ) && ( ymin < b ) ){
+                li[xmin][ymin + 1] = 46;
+            }
+            else{
+                li[xmin+1][ymin] = 46;
+            }
+            count++;
         }
+
+    // 現在のマップと現在位置
+    for ( i = 0; i < a; i++)
+    {
+        for ( j = 0; j < b; j++)
+        {
+            if( i == x && j == y ){
+//                cout << "*";
+            }
+            else{
+//                cout << li[i][j];
+            }
+        }
+//        cout << "\n";
+    }
+
+    // ゴールから距離が近いならxmin,yminを更新
+    if( int(sqrt(xmin * xmin + ymin * ymin )) < int(sqrt( x * x + y * y )) ){
+        xmin = x;
+        ymin = y;
+    }
 
         // もとの位置に戻ってきたか、ゴールしたか確認
         if( ( x == 0 ) && ( y == 0 ) ){
-            cout << "nothing else\n";
-            break;
+//            cout << "nothing else\n";
+//            cout << "!min:" << xmin << "," << ymin << "\n";
+            // 一番近いとこを白にする
+            if( ( xmin > ymin ) && ( ymin < b ) ){
+                li[xmin][ymin + 1] = 46;
+            }
+            else{
+                li[xmin+1][ymin] = 46;
+            }
+            count++;
         }
         else if( ( x == a - 1  ) && ( y == b - 1 ) ){
-            cout << "goal\n";
+            cout << count << "\n";
             break;
         }
     } 
@@ -81,6 +127,19 @@ int main(){
 }
 
 /*
+        // ゴールから距離が近いならxmin,yminを更新
+        if( ( xmin * ymin ) < ( x * y ) ){
+            xmin = x;
+            ymin = y;
+        }
+*/
+
+/*
+3 3
+.##
+.#.
+##.
+
 4 4
 ..##
 #...
