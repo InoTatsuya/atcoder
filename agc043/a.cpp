@@ -45,41 +45,47 @@ int main(){
     }
 
     while( 1 ){
-//        cout << "now:" << x << "," << y  << "  old:" << xold << "," << yold << "," << count << "\n";
+        cout << "\nnow:" << x << "," << y  << "  old:" << xold << "," << yold << "," << count << "\n";
         // 上確認
         if( ( x > 0 ) && ( ( x - 1 ) != xold ) && ( li[ x - 1 ][y] == 46 ) ){
-//            cout << "up ok\n";
+            cout << "up ok\n";
             xold = x;
             x--;
         }
         // 右確認
         else if( ( y < b ) && ( ( y + 1 ) != yold ) && ( li[x][ y + 1 ] == 46 ) ){
-//            cout << "right ok\n";
+            cout << "right ok\n";
             yold = y;
             y++;
         }
         // 下確認
         else if( ( x < a ) && ( ( x + 1 ) != xold ) && ( li[ x + 1 ][y] == 46 ) ){
-//            cout << "down ok\n";
+            cout << "down ok\n";
             xold = x;
             x++;
         }
         // 左確認
         else if( ( y > 0 ) && ( ( y - 1 ) != yold ) && ( li[x][ y - 1 ] == 46 ) ){
-//            cout << "left ok\n";
+            cout << "left ok\n";
             yold = y;
             y--;
         }
         // どこもいけない
         else{
-//            cout << "nothing\n";
-//            cout << "min:" << xmin << "," << ymin << "\n";
+            cout << "nothing\n";
+            cout << "min:" << xmin << "," << ymin << "\n";
             // 一番近いとこを白にする
             if( ( xmin > ymin ) && ( ymin < b ) ){
-                li[xmin][ymin + 1] = 46;
+                ymin++;
+                li[xmin][ymin] = 46;
+                yold = y;
+                y++;
             }
             else{
-                li[xmin+1][ymin] = 46;
+                xmin++;
+                li[xmin][ymin] = 46;
+                xold = x;
+                x++;
             }
             count++;
         }
@@ -90,13 +96,14 @@ int main(){
         for ( j = 0; j < b; j++)
         {
             if( i == x && j == y ){
-//                cout << "*";
+//                cout << li[i][j];
+                cout << "*";
             }
             else{
-//                cout << li[i][j];
+                cout << li[i][j];
             }
         }
-//        cout << "\n";
+        cout << "\n";
     }
 
     // ゴールから距離が近いならxmin,yminを更新
@@ -107,16 +114,9 @@ int main(){
 
         // もとの位置に戻ってきたか、ゴールしたか確認
         if( ( x == 0 ) && ( y == 0 ) ){
-//            cout << "nothing else\n";
-//            cout << "!min:" << xmin << "," << ymin << "\n";
-            // 一番近いとこを白にする
-            if( ( xmin > ymin ) && ( ymin < b ) ){
-                li[xmin][ymin + 1] = 46;
-            }
-            else{
-                li[xmin+1][ymin] = 46;
-            }
-            count++;
+            cout << "nothing else\n";
+            cout << "min:" << xmin << "," << ymin << "\n";
+            break;
         }
         else if( ( x == a - 1  ) && ( y == b - 1 ) ){
             cout << count << "\n";
@@ -150,4 +150,19 @@ int main(){
 ..##
 #...
 ###.
+
+5 5
+.#.#.
+#.#.#
+.#.#.
+#.#.#
+.#.#.
+
+6 6
+.#.#.#
+#.#.#.
+.#.#.#
+#.#.#.
+.#.#.#
+#.#.#.
 */
