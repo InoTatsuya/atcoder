@@ -8,7 +8,7 @@ int count(int *a, int c, int n,int ig);
 #define R 2
 
 int main(){
-    int n,i,j,a[200000];
+    int n,i,j,a[200000],c;
     int max;
 
     cin >> n;
@@ -22,19 +22,20 @@ int main(){
 */
     // k=0~n-1でnCrを計算
     for( i = 0; i < n; i ++){
-        count(a, a[i], n, i);
-//        cout << count(a, a[i], n, i) << "\n";
 //        cout << ncr( count(a, a[i], n, i) ) << "\n";
 
         // ユニークかつAkでないAiの列挙
         max = 0;
+        c = 0;
         for( j = 0; j < n; j++ ){
             if( ( max < a[j] ) && ( i != j ) ){
-                cout << a[j] << " ";
+//                cout << a[j] << " ";
                 max = a[j];
+                c += ncr( count(a, a[j], n, i) );
             }
         }
-        cout << "\n";
+//        cout << "\n";
+        cout << c << "\n";
     }
 
 }
