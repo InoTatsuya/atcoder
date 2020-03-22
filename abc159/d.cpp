@@ -7,13 +7,20 @@ int factor(int);
 #define R 2
 
 int main(){
-    int a;
+    int n,i,a[200000];
 
-    cin >> a;
+    cin >> n;
+    for( i = 0; i < n; i++){
+        cin >> a[i];
+    }
+/*  表示するだけ
+    for( i = 0; i < n; i++){
+        cout << a[i] << "\n";
+    }
+*/
 
-    cout << ncr(a) << "\n";
+    for( i = 0; i < n; i++)
 
-//    cout << li[ a - 1 ] << "\n";
 }
 
 int ncr(int n){
