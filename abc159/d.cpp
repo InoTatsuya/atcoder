@@ -4,6 +4,8 @@ using namespace std;
 int ncr(int);
 int factor(int);
 
+#define R 2
+
 int main(){
     int a;
 
@@ -15,7 +17,7 @@ int main(){
 }
 
 int ncr(int n){
-    return ;
+    return factor(n)/(R * factor(n-R));
 }
 
 int factor(int n){
